@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | My Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .gallery-item {
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 30px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <div>
+                        <a href="index.html" class="flex items-center py-5 px-2 text-white">
+                            <i class="fas fa-blog text-2xl mr-2"></i>
+                            <span class="font-bold text-xl">My Blog</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="py-5 px-3 text-white hover:bg-indigo-700">Home</a>
+                    <a href="official.html" class="py-5 px-3 text-white hover:bg-indigo-700">Official</a>
+                    <a href="schedule.html" class="py-5 px-3 text-white hover:bg-indigo-700">Schedule</a>
+                    <a href="gallery.html" class="py-5 px-3 text-white bg-indigo-800 rounded">Gallery</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button p-2 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="mobile-menu hidden md:hidden bg-indigo-800">
+            <a href="index.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Home</a>
+            <a href="official.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Official</a>
+            <a href="schedule.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Schedule</a>
+            <a href="gallery.html" class="block py-2 px-4 text-white bg-indigo-900">Gallery</a>
+        </div>
+    </nav>
+
+    <!-- Gallery Header -->
+    <section class="bg-indigo-700 text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold mb-4">Meeting Gallery</h1>
+            <p class="text-xl">Upload and view your meeting images and videos</p>
+        </div>
+    </section>
+
+    <!-- Upload Section -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 p-6 rounded-lg border-2 border-dashed border-gray-300">
+                    <h2 class="text-2xl font-bold mb-4">Upload Media</h2>
+                    <form id="uploadForm" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Select Files</label>
+                            <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                                <div class="space-y-1 text-center">
+                                    <div class="flex text-sm text-gray-600">
+                                        <label for="file-upload" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none">
+                                            <span>Upload files</span>
+                                            <input id="file-upload" name="file-upload" type="file" class="sr-only" multiple accept="image/*,video/*">
+                                        </label>
+                                        <p class="pl-1">or drag and drop</p>
+                                    </div>
+                                    <p class="text-xs text-gray-500">PNG, JPG, GIF, MP4 up to 10MB</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center">
+                            <input id="addToSchedule" name="addToSchedule" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="addToSchedule" class="ml-2 block text-sm text-gray-700">Link to schedule event</label>
+                        </div>
+                        <div id="scheduleSelectContainer" class="hidden">
+                            <label for="scheduleEvent" class="block text-sm font-medium text-gray-700">Select Event</label>
+                            <select id="scheduleEvent" name="scheduleEvent" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                                <option>Team Meeting - June 5</option>
+                                <option>Client Presentation - June 6</option>
+                                <option>Code Review - June 7</option>
+                            </select>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Upload
+                            </button>
+                        </div>
+                    </form>
+                    <div id="uploadProgress" class="hidden mt-4">
+                        <div class="flex justify-between mb-1">
+                            <span class="text-sm font-medium text-indigo-700">Uploading...</span>
+                            <span class="text-sm font-medium text-gray-500" id="progressPercent">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2.5">
+                            <div id="progressBar" class="bg-indigo-600 h-2.5 rounded-full" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-2xl font-bold mb-8">Recent Uploads</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="galleryGrid">
+                <!-- Gallery items will be added here -->
+                <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="relative pb-[75%]">
+                        <img src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg" 
+                             alt="Team meeting" 
+                             class="absolute h-full w-full object-cover cursor-pointer"
+                             onclick="openLightbox(this)">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Team Meeting</h3>
+                        <p class="text-sm text-gray-500">June 5, 2023</p>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Image</span>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="relative pb-[75%]">
+                        <video class="absolute h-full w-full object-cover cursor-pointer" onclick="openLightbox(this)" controls>
+                            <source src="https://samplelib.com/lib/preview/mp4/sample-5s.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Product Demo</h3>
+                        <p class="text-sm text-gray-500">June 6, 2023</p>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Video</span>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="relative pb-[75%]">
+                        <img src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg" 
+                             alt="Workshop" 
+                             class="absolute h-full w-full object-cover cursor-pointer"
+                             onclick="openLightbox(this)">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Workshop</h3>
+                        <p class="text-sm text-gray-500">June 7, 2023</p>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Image</span>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gallery-item bg-white rounded-lg overflow-hidden shadow-md">
+                    <div class="relative pb-[75%]">
+                        <img src="https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg" 
+                             alt="Brainstorming" 
+                             class="absolute h-full w-full object-cover cursor-pointer"
+                             onclick="openLightbox(this)">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-semibold">Brainstorming</h3>
+                        <p class="text-sm text-gray-500">June 8, 2023</p>
+                        <div class="mt-2 flex justify-between items-center">
+                            <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Image</span>
+                            <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <div class="lightbox-content">
+            <img id="lightboxImage" src="" alt="" class="hidden max-h-full max-w-full">
+            <video id="lightboxVideo" src="" controls class="hidden max-h-full max-w-full"></video>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2023 My Personal Blog. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.querySelector('.mobile-menu-button');
+        const menu = document.querySelector('.mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Toggle schedule event selection
+        document.getElementById('addToSchedule').addEventListener('change', function() {
+            document.getElementById('scheduleSelectContainer').classList.toggle('hidden', !this.checked);
+        });
+
+        // Handle file upload
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const files = document.getElementById('file-upload').files;
+            
+            if (files.length === 0) {
+                alert('Please select at least one file to upload');
+                return;
+            }
+
+            // Show progress bar
+            const progressBar = document.getElementById('progressBar');
+            const progressPercent = document.getElementById('progressPercent');
+            const uploadProgress = document.getElementById('uploadProgress');
+            uploadProgress.classList.remove('hidden');
+
+            // Simulate upload progress
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                progressBar.style.width = `${progress}%`;
+                progressPercent.textContent = `${progress}%`;
+                
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        uploadProgress.classList.add('hidden');
+                        progressBar.style.width = '0%';
+                        progressPercent.textContent = '0%';
+                        addMediaToGallery(files);
+                        this.reset();
+                        document.getElementById('scheduleSelectContainer').classList.add('hidden');
+                        document.getElementById('addToSchedule').checked = false;
+                        alert('Files uploaded successfully!');
+                    }, 500);
+                }
+            }, 100);
+        });
+
+        // Add uploaded media to gallery
+        function addMediaToGallery(files) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            
+            Array.from(files).forEach(file => {
+                const isVideo = file.type.startsWith('video/');
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const galleryItem = document.createElement('div');
+                    galleryItem.className = 'gallery-item bg-white rounded-lg overflow-hidden shadow-md';
+                    
+                    if (isVideo) {
+                        galleryItem.innerHTML = `
+                            <div class="relative pb-[75%]">
+                                <video class="absolute h-full w-full object-cover cursor-pointer" onclick="openLightbox(this)" controls>
+                                    <source src="${e.target.result}" type="${file.type}">
+                                </video>
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold">${file.name.split('.')[0]}</h3>
+                                <p class="text-sm text-gray-500">${new Date().toLocaleDateString()}</p>
+                                <div class="mt-2 flex justify-between items-center">
+                                    <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Video</span>
+                                    <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        galleryItem.innerHTML = `
+                            <div class="relative pb-[75%]">
+                                <img src="${e.target.result}" 
+                                     alt="${file.name.split('.')[0]}" 
+                                     class="absolute h-full w-full object-cover cursor-pointer"
+                                     onclick="openLightbox(this)">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold">${file.name.split('.')[0]}</h3>
+                                <p class="text-sm text-gray-500">${new Date().toLocaleDateString()}</p>
+                                <div class="mt-2 flex justify-between items-center">
+                                    <span class="text-xs bg-indigo-100 text-indigo-800 px-2 py-1 rounded-full">Image</span>
+                                    <button class="text-red-500 hover:text-red-700 text-sm" onclick="deleteMedia(this)">
+                                        <i class="fas fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    galleryGrid.prepend(galleryItem);
+                };
+                
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // Delete media item
+        function deleteMedia(button) {
+            if (confirm('Are you sure you want to delete this item?')) {
+                button.closest('.gallery-item').remove();
+            }
+        }
+
+        // Lightbox functionality
+        function openLightbox(element) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImage = document.getElementById('lightboxImage');
+            const lightboxVideo = document.getElementById('lightboxVideo');
+            
+            if (element.tagName === 'IMG') {
+                lightboxImage.src = element.src;
+                lightboxImage.alt = element.alt;
+                lightboxImage.classList.remove('hidden');
+                lightboxVideo.classList.add('hidden');
+            } else if (element.tagName === 'VIDEO') {
+                lightboxVideo.src = element.querySelector('source').src;
+                lightboxVideo.classList.remove('hidden');
+                lightboxImage.classList.add('hidden');
+            }
+            
+            lightbox.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxVideo = document.getElementById('lightboxVideo');
+            
+            lightbox.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            
+            // Pause video when closing lightbox
+            if (!lightboxVideo.classList.contains('hidden')) {
+                lightboxVideo.pause();
+            }
+        }
+
+        // Close lightbox when clicking outside content
+        document.getElementById('lightbox').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLightbox();
+            }
+        });
+
+        // Add event listeners to existing delete buttons
+        document.querySelectorAll('.gallery-item button').forEach(button => {
+            button.addEventListener('click', function() {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    this.closest('.gallery-item').remove();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
