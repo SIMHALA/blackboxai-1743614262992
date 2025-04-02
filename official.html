@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Details | My Blog</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .card {
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .contact-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.pexels.com/photos/380769/pexels-photo-380769.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-indigo-600 text-white shadow-lg">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between">
+                <div class="flex space-x-4">
+                    <div>
+                        <a href="index.html" class="flex items-center py-5 px-2 text-white">
+                            <i class="fas fa-blog text-2xl mr-2"></i>
+                            <span class="font-bold text-xl">My Blog</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="index.html" class="py-5 px-3 text-white hover:bg-indigo-700">Home</a>
+                    <a href="official.html" class="py-5 px-3 text-white bg-indigo-800 rounded">Official</a>
+                    <a href="schedule.html" class="py-5 px-3 text-white hover:bg-indigo-700">Schedule</a>
+                    <a href="gallery.html" class="py-5 px-3 text-white hover:bg-indigo-700">Gallery</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button class="mobile-menu-button p-2 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div class="mobile-menu hidden md:hidden bg-indigo-800">
+            <a href="index.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Home</a>
+            <a href="official.html" class="block py-2 px-4 text-white bg-indigo-900">Official</a>
+            <a href="schedule.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Schedule</a>
+            <a href="gallery.html" class="block py-2 px-4 text-white hover:bg-indigo-700">Gallery</a>
+        </div>
+    </nav>
+
+    <!-- Official Details Header -->
+    <section class="contact-bg text-white py-20">
+        <div class="container mx-auto px-6 text-center">
+            <h1 class="text-4xl font-bold mb-4">Official Details</h1>
+            <p class="text-xl">Professional information and credentials</p>
+        </div>
+    </section>
+
+    <!-- Contact Information Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Contact Information</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="card bg-gray-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-building text-indigo-600 mr-3"></i>
+                            Office Address
+                        </h3>
+                        <address class="text-gray-600 not-italic">
+                            <p class="mb-2">123 Tech Park Avenue</p>
+                            <p class="mb-2">Suite 400</p>
+                            <p>San Francisco, CA 94107</p>
+                        </address>
+                    </div>
+                    <div class="card bg-gray-50 p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-phone-alt text-indigo-600 mr-3"></i>
+                            Contact Details
+                        </h3>
+                        <div class="text-gray-600">
+                            <p class="mb-2"><strong>Work Phone:</strong> +1 (555) 987-6543</p>
+                            <p class="mb-2"><strong>Extension:</strong> 1234</p>
+                            <p><strong>Work Email:</strong> j.doe@company.com</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Credentials -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Professional Credentials</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="card bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Current Position</h3>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-briefcase text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Senior Web Developer</h4>
+                            <p class="text-gray-600 mb-2">Tech Solutions Inc. • 2020-Present</p>
+                            <p class="text-gray-700">Leading frontend development team and implementing modern web solutions for enterprise clients.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-white p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-xl font-semibold mb-4">Education</h3>
+                    <div class="flex items-start mb-6">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-graduation-cap text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Master of Computer Science</h4>
+                            <p class="text-gray-600 mb-2">Stanford University • 2018</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-indigo-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-graduation-cap text-indigo-600 text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-lg">Bachelor of Science in IT</h4>
+                            <p class="text-gray-600 mb-2">UC Berkeley • 2016</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Certifications</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-indigo-600 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold">AWS Certified Developer</h4>
+                                <p class="text-gray-600 text-sm">Valid until June 2025</p>
+                            </div>
+                            <a href="#" class="ml-auto text-indigo-600 hover:text-indigo-800" download>
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-indigo-600 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold">Google Professional Data Engineer</h4>
+                                <p class="text-gray-600 text-sm">Valid until March 2024</p>
+                            </div>
+                            <a href="#" class="ml-auto text-indigo-600 hover:text-indigo-800" download>
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-certificate text-indigo-600 mr-3"></i>
+                            <div>
+                                <h4 class="font-bold">Microsoft Certified: Azure Solutions Architect</h4>
+                                <p class="text-gray-600 text-sm">Valid until December 2023</p>
+                            </div>
+                            <a href="#" class="ml-auto text-indigo-600 hover:text-indigo-800" download>
+                                <i class="fas fa-download"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="max-w-2xl mx-auto">
+                <h2 class="text-3xl font-bold text-center mb-12">Official Contact Form</h2>
+                <form class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="company" class="block text-sm font-medium text-gray-700">Company</label>
+                        <input type="text" id="company" name="company" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    </div>
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                        <select id="subject" name="subject" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                            <option>Business Inquiry</option>
+                            <option>Partnership Opportunity</option>
+                            <option>Job Offer</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="4" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2023 My Personal Blog. All rights reserved.</p>
+            <div class="flex justify-center space-x-4 mt-4">
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-linkedin"></i></a>
+                <a href="#" class="hover:text-indigo-400"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const btn = document.querySelector('.mobile-menu-button');
+        const menu = document.querySelector('.mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // Form validation
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submitted successfully! (This is a demo)');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
